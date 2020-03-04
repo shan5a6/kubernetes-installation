@@ -2,5 +2,5 @@
 master1 ansible_user=centos
 
 [kubernetes-worker-nodes]
-worker1 ansible_host=172.31.38.252 ansible_user=centos
-worker2	ansible_host=172.31.35.113 ansible_user=centos
+worker1 ansible_user=centos
+worker2	ansible_user=centos
