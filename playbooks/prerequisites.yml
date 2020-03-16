@@ -17,6 +17,8 @@
       setenforce 0
       sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
       modprobe br_netfilter
+  - name: Sync hosts file
+    template: src=/etc/hosts dest=/etc/hosts
       
       
 
