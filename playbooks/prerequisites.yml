@@ -11,7 +11,12 @@
      path: /etc/fstab
      regexp: '(.*swap*)'
      replace: '#\1'
-  - name: Installing epel repo
-    command: yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y
-    ignore_errors: true
-  
+
+  - name: Changing Selinux 
+    shell: |
+      setenforce 0
+      sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+      modprobe br_netfilter
+      
+      
+

@@ -1,4 +1,4 @@
-[init] Using Kubernetes version: v1.17.3
+[init] Using Kubernetes version: v1.17.4
 [preflight] Running pre-flight checks
 [preflight] Pulling images required for setting up a Kubernetes cluster
 [preflight] This might take a minute or two, depending on the speed of your internet connection
@@ -9,15 +9,15 @@
 [certs] Using certificateDir folder "/etc/kubernetes/pki"
 [certs] Generating "ca" certificate and key
 [certs] Generating "apiserver" certificate and key
-[certs] apiserver serving cert is signed for DNS names [ip-172-31-10-55.us-east-2.compute.internal kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 172.31.10.55]
+[certs] apiserver serving cert is signed for DNS names [master1 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.128.0.21]
 [certs] Generating "apiserver-kubelet-client" certificate and key
 [certs] Generating "front-proxy-ca" certificate and key
 [certs] Generating "front-proxy-client" certificate and key
 [certs] Generating "etcd/ca" certificate and key
 [certs] Generating "etcd/server" certificate and key
-[certs] etcd/server serving cert is signed for DNS names [ip-172-31-10-55.us-east-2.compute.internal localhost] and IPs [172.31.10.55 127.0.0.1 ::1]
+[certs] etcd/server serving cert is signed for DNS names [master1 localhost] and IPs [10.128.0.21 127.0.0.1 ::1]
 [certs] Generating "etcd/peer" certificate and key
-[certs] etcd/peer serving cert is signed for DNS names [ip-172-31-10-55.us-east-2.compute.internal localhost] and IPs [172.31.10.55 127.0.0.1 ::1]
+[certs] etcd/peer serving cert is signed for DNS names [master1 localhost] and IPs [10.128.0.21 127.0.0.1 ::1]
 [certs] Generating "etcd/healthcheck-client" certificate and key
 [certs] Generating "apiserver-etcd-client" certificate and key
 [certs] Generating "sa" key and public key
@@ -32,13 +32,13 @@
 [control-plane] Creating static Pod manifest for "kube-scheduler"
 [etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
 [wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
-[apiclient] All control plane components are healthy after 14.002265 seconds
+[apiclient] All control plane components are healthy after 14.503390 seconds
 [upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
 [kubelet] Creating a ConfigMap "kubelet-config-1.17" in namespace kube-system with the configuration for the kubelets in the cluster
 [upload-certs] Skipping phase. Please see --upload-certs
-[mark-control-plane] Marking the node ip-172-31-10-55.us-east-2.compute.internal as control-plane by adding the label "node-role.kubernetes.io/master=''"
-[mark-control-plane] Marking the node ip-172-31-10-55.us-east-2.compute.internal as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
-[bootstrap-token] Using token: 4w2d8o.10zg7chbcee02x43
+[mark-control-plane] Marking the node master1 as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[mark-control-plane] Marking the node master1 as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[bootstrap-token] Using token: p3vwpp.16r1z0igmjeo4w0c
 [bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
 [bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
 [bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
@@ -62,5 +62,5 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-kubeadm join 172.31.10.55:6443 --token 4w2d8o.10zg7chbcee02x43 \
-    --discovery-token-ca-cert-hash sha256:2d91931b61180f2d648b1a5a162a9cc0c3835219755a4a583b293640d8c32f0c 
+kubeadm join 10.128.0.21:6443 --token p3vwpp.16r1z0igmjeo4w0c \
+    --discovery-token-ca-cert-hash sha256:871149af36c42647d27cfafb273d0594adf8415506f552ae6b16d4b3e4ab6b62 
