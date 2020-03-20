@@ -1,6 +1,6 @@
 [kubernetes-master-nodes]
-master1 ansible_user=centos servername="master1"
+master1 ansible_user=centos 
 
 [kubernetes-worker-nodes]
-worker1 ansible_user=centos servername="worker1"
-worker2	ansible_user=centos servername="worker2"
+worker1 ansible_user=centos 
+worker2	ansible_user=centos 
