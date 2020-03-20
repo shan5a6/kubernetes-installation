@@ -11,6 +11,8 @@
      path: /etc/fstab
      regexp: '(.*swap*)'
      replace: '#\1'
+  - name: Setting the Server name
+    hostname: name="{{servername}}"
 
   - name: Changing Selinux 
     shell: |
