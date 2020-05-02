@@ -7,7 +7,7 @@
     shell: kubeadm config images pull
 
   - name: Initializing Kubernetes cluster
-    shell: kubeadm init --ignore-preflight-errors=all
+    shell: kubeadm init --ignore-preflight-errors=all --token-ttl=0
     register: output
 
   - name: Storing Logs and Generated token for future purpose.
