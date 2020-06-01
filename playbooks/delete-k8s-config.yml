@@ -31,3 +31,9 @@
     - /var/lib/etcd/
     - $HOME/.kube/
 
+  - name: Removing required files of "{{ ansible_user }}"
+    shell: |
+        rm -rf $HOME/admin.conf $HOME/.kube/
+    become: yes
+    become_user: "{{ ansible_user }}"    
+
