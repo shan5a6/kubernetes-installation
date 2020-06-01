@@ -28,7 +28,8 @@
      mkdir -p $HOME/.kube
      sudo cp -i /etc/kubernetes/admin.conf $HOME/
      sudo chown $(id -u):$(id -g) $HOME/admin.conf
-     whoami
+     echo "export KUBECONFIG=$HOME/admin.conf" >> ~/.bashrc
+     source ~/.bashrc && bash
     become: yes
     become_user: "{{ ansible_user }}"
 
