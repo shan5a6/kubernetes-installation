@@ -1,7 +1,0 @@
----
-- name: testing
-  hosts: all
-  tasks:
-    - name: testing 
-      command: uname -a
-
