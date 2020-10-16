@@ -1,4 +1,16 @@
 ---
-- import_playbook: playbooks/prerequisites.yml
-- import_playbook: playbooks/setting_up_nodes.yml
-- import_playbook: playbooks/configure_master_node.yml
+
+############# Debian/Ubuntu Based OS #############
+- import_playbook: playbooks/prerequisites-ubuntu.yml
+  when: os_type  == "Ubuntu"
+
+- import_playbook: playbooks/setting_up_nodes-ubuntu.yml
+  when: os_type  == "Ubuntu"
+
+############# Cenots Based OS #############
+
+- import_playbook: playbooks/prerequisites-centos.yml
+  when: os_type  == "Centos"
+- import_playbook: playbooks/setting_up_nodes-centos.yml
+  when: os_type  == "Centos"
+#- import_playbook: playbooks/configure_master_node.yml
