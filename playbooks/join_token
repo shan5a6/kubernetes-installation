@@ -4,22 +4,25 @@
 [preflight] This might take a minute or two, depending on the speed of your internet connection
 [preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
 [certs] Using certificateDir folder "/etc/kubernetes/pki"
-[certs] Using existing ca certificate authority
-[certs] Using existing apiserver certificate and key on disk
-[certs] Using existing apiserver-kubelet-client certificate and key on disk
-[certs] Using existing front-proxy-ca certificate authority
-[certs] Using existing front-proxy-client certificate and key on disk
-[certs] Using existing etcd/ca certificate authority
-[certs] Using existing etcd/server certificate and key on disk
-[certs] Using existing etcd/peer certificate and key on disk
-[certs] Using existing etcd/healthcheck-client certificate and key on disk
-[certs] Using existing apiserver-etcd-client certificate and key on disk
-[certs] Using the existing "sa" key
+[certs] Generating "ca" certificate and key
+[certs] Generating "apiserver" certificate and key
+[certs] apiserver serving cert is signed for DNS names [ip-172-31-73-231 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 172.31.73.231]
+[certs] Generating "apiserver-kubelet-client" certificate and key
+[certs] Generating "front-proxy-ca" certificate and key
+[certs] Generating "front-proxy-client" certificate and key
+[certs] Generating "etcd/ca" certificate and key
+[certs] Generating "etcd/server" certificate and key
+[certs] etcd/server serving cert is signed for DNS names [ip-172-31-73-231 localhost] and IPs [172.31.73.231 127.0.0.1 ::1]
+[certs] Generating "etcd/peer" certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [ip-172-31-73-231 localhost] and IPs [172.31.73.231 127.0.0.1 ::1]
+[certs] Generating "etcd/healthcheck-client" certificate and key
+[certs] Generating "apiserver-etcd-client" certificate and key
+[certs] Generating "sa" key and public key
 [kubeconfig] Using kubeconfig folder "/etc/kubernetes"
-[kubeconfig] Using existing kubeconfig file: "/etc/kubernetes/admin.conf"
-[kubeconfig] Using existing kubeconfig file: "/etc/kubernetes/kubelet.conf"
-[kubeconfig] Using existing kubeconfig file: "/etc/kubernetes/controller-manager.conf"
-[kubeconfig] Using existing kubeconfig file: "/etc/kubernetes/scheduler.conf"
+[kubeconfig] Writing "admin.conf" kubeconfig file
+[kubeconfig] Writing "kubelet.conf" kubeconfig file
+[kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[kubeconfig] Writing "scheduler.conf" kubeconfig file
 [kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
 [kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
 [kubelet-start] Starting the kubelet
@@ -29,13 +32,13 @@
 [control-plane] Creating static Pod manifest for "kube-scheduler"
 [etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
 [wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
-[apiclient] All control plane components are healthy after 0.009668 seconds
+[apiclient] All control plane components are healthy after 13.502035 seconds
 [upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
 [kubelet] Creating a ConfigMap "kubelet-config-1.19" in namespace kube-system with the configuration for the kubelets in the cluster
 [upload-certs] Skipping phase. Please see --upload-certs
 [mark-control-plane] Marking the node ip-172-31-73-231 as control-plane by adding the label "node-role.kubernetes.io/master=''"
 [mark-control-plane] Marking the node ip-172-31-73-231 as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
-[bootstrap-token] Using token: whafy2.m405wkchgbzimgcm
+[bootstrap-token] Using token: b75ftw.k9lvea09eyr51som
 [bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
 [bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to get nodes
 [bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
@@ -60,5 +63,5 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-kubeadm join 172.31.73.231:6443 --token whafy2.m405wkchgbzimgcm \
-    --discovery-token-ca-cert-hash sha256:17b860389d2ebda203ee02cd5310a083bf0fa8f50f480b0d49928f9e6d79e926 
+kubeadm join 172.31.73.231:6443 --token b75ftw.k9lvea09eyr51som \
+    --discovery-token-ca-cert-hash sha256:4c49791542e402aac98aa65d10a90808a1b033ecedbfd122ee0b23aee90e3f1f 
