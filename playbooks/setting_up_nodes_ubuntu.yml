@@ -1,0 +1,44 @@
+---
+- hosts: all
+  vars_files:
+  - env_variables_ubuntu
+
+  tasks:
+  - name: Creating a repository file for Kubernetes
+    file:
+     path: /etc/apt/sources.list.d/kubernetes.list
+     state: touch
+  - name: Download repo key
+    get_url:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      dest: /root/apt-key.gpg
+    register: aptkey
+
+  - name: Adding the repo keys
+    command: apt-key add /root/apt-key.gpg
+    when: aptkey.changed
+
+  - name: Adding repository details in Kubernetes repo file.
+    blockinfile:
+     path: /etc/apt/sources.list.d/kubernetes.list
+     block: |
+       deb https://apt.kubernetes.io/ kubernetes-xenial main
+
+  - name: updating cache
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+  - name: Installing required packages
+    apt:
+     name: "{{ item }}"
+     state: present
+     update_cache: yes
+    with_items: "{{ packages }}"
+
+  - name: Starting and Enabling the required services
+    service:
+     name: "{{ item }}"
+     state: started
+     enabled: yes
+    with_items: "{{ services }}"
+
+

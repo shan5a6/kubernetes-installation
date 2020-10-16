@@ -1,7 +1,7 @@
 ---
 - hosts: kubernetes-master-nodes
   vars_files:
-  - env_variables 
+  - env_variables_ubuntu
   tasks:
   - name: Pulling images required for setting up a Kubernetes cluster
     shell: kubeadm config images pull
@@ -29,7 +29,7 @@
      sudo cp -i /etc/kubernetes/admin.conf $HOME/
      sudo chown $(id -u):$(id -g) $HOME/admin.conf
      echo "export KUBECONFIG=$HOME/admin.conf" >> ~/.bashrc
-     source ~/.bashrc && bash
+     bash
     become: yes
     become_user: "{{ ansible_user }}"
 

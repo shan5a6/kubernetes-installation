@@ -1,0 +1,35 @@
+---
+- hosts: kubernetes-master-nodes
+  vars_files:
+  - env_variables_centos
+  tasks:
+  - name: Pulling images required for setting up a Kubernetes cluster
+    shell: kubeadm config images pull
+
+  - name: Initializing Kubernetes cluster
+    shell: kubeadm init --ignore-preflight-errors=all --token-ttl=0
+    register: output
+
+  - name: Storing Logs and Generated token for future purpose.
+    local_action: copy content={{ output.stdout }} dest={{ token_file }}
+
+  - name: Copying required files
+    shell: |
+     mkdir -p $HOME/.kube
+     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+     sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+  - name: Install Network Add-on
+    shell: |
+      export kubever=$(kubectl version | base64 | tr -d '\n')
+      kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+  - name: Configuring kubectl for "{{ ansible_user }}"
+    shell: |
+     mkdir -p $HOME/.kube
+     sudo cp -i /etc/kubernetes/admin.conf $HOME/
+     sudo chown $(id -u):$(id -g) $HOME/admin.conf
+     echo "export KUBECONFIG=$HOME/admin.conf" >> ~/.bashrc
+     source ~/.bashrc && bash
+    become: yes
+    become_user: "{{ ansible_user }}"
+
