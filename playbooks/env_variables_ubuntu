@@ -11,7 +11,7 @@ packages:
 - kubectl
 
 services:
-- docker.io
+- docker
 - kubelet
 
 token_file: join_token

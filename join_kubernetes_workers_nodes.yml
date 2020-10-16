@@ -1,2 +1,5 @@
 ---
-- import_playbook: playbooks/configure_worker_nodes.yml
+- import_playbook: playbooks/configure_master_node_centos.yml
+  when: os_type == "Centos"
+- import_playbook: playbooks/configure_master_node_ubuntu.yml
+  when: os_type == "Ubuntu"
