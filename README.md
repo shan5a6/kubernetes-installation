@@ -23,7 +23,10 @@ apt-get  install ansible -y
 ```
 ###### Centos
 ```
-sudo yum install python2-pip.noarch git -y
-sudo pip install ansible
+yum install epel-release ansible -y
 ```
-
+###### Amazon Linux
+```
+sudo amazon-linux-extras install epel -y
+sudo yum install ansible -y
+```
