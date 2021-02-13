@@ -17,8 +17,8 @@ us-west-2 = "ami-a9d276c9"
 Luanch one server and install the ansible & git as below
 ###### Ubuntu
 ```
-apt-get update
 apt-add-repository ppa:ansible/ansible
+apt-get update
 apt-get  install ansible -y
 ```
 ###### Centos
