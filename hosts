@@ -1,5 +1,6 @@
 [kubernetes-master-nodes]
-ip-172-31-73-231.ec2.internal ansible_user=ubuntu os_type="Ubuntu"
+ip-172-31-21-175.ec2.internal ansible_user=ubuntu os_type="Ubuntu"
 
 [kubernetes-worker-nodes]
-ip-172-31-69-93.ec2.internal ansible_user=ubuntu  os_type="Ubuntu"
+ip-172-31-30-98.ec2.internal ansible_user=ubuntu  os_type="Ubuntu"
+ip-172-31-22-176.ec2.internal ansible_user=ubuntu  os_type="Ubuntu"

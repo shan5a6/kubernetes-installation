@@ -27,6 +27,11 @@
      state: present
     with_items: "{{ packages }}"
 
+  - name: Adding docker driver details to daemon.json
+    template:
+      src: daemon-json.j2
+      dest: /etc/docker/daemon.json
+
   - name: Starting and Enabling the required services
     service:
      name: "{{ item }}"
@@ -44,4 +49,3 @@
 
   - name: Enabling Bridge Firewall Rule
     shell: "echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables"
-

@@ -16,12 +16,17 @@
     template: src=k8s.conf dest=/etc/sysctl.d/k8s.conf owner=root group=root
     register: iptables
 
+  - name: Changing iptables
+    template: src=k8s-module.conf dest=/etc/modules-load.d/k8s.conf owner=root group=root
+    register: iptables_module
+
   - name: Sync the sysctl configuration
     command: sysctl --system
     when: iptables.changed
 
+  - name: Sync the sysctl configuration
+    command: sysctl --system
+    when: iptables_module.changed
+
   - name: Sync hosts file
     template: src=/etc/hosts dest=/etc/hosts
-      
-      
-
