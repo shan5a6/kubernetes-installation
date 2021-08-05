@@ -8,6 +8,7 @@
     file:
      path: /etc/apt/sources.list.d/kubernetes.list
      state: touch
+
   - name: Download repo key
     get_url:
       url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -34,11 +35,27 @@
      update_cache: yes
     with_items: "{{ packages }}"
 
+  - name: Creating a docker deamon config file
+    file:
+     path: /etc/docker/daemon.json
+     state: touch
+
+  - name: Adding docker driver details to daemon.json
+    blockinfile:
+     path: /etc/docker/daemon.json
+     block: |
+        {
+          "exec-opts": ["native.cgroupdriver=systemd"],
+          "log-driver": "json-file",
+          "log-opts": {
+            "max-size": "100m"
+          },
+          "storage-driver": "overlay2"
+        }
+
   - name: Starting and Enabling the required services
     service:
      name: "{{ item }}"
      state: started
      enabled: yes
     with_items: "{{ services }}"
-
-
