@@ -23,10 +23,18 @@
     blockinfile:
      path: /etc/apt/sources.list.d/kubernetes.list
      block: |
-       "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main"
+       deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
 
   - name: updating cache
     apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+  - name: creating docker folder
+    file: path=/etc/docker state=directory owner=root group=root
+
+  - name: Adding docker driver details to daemon.json
+    template:
+      src: daemon-json.j2
+      dest: /etc/docker/daemon.json
 
   - name: Installing required packages
     apt:
@@ -34,11 +42,6 @@
      state: present
      update_cache: yes
     with_items: "{{ packages }}"
-
-  - name: Adding docker driver details to daemon.json
-    template:
-      src: deamon-json.j2
-      dest: /etc/docker/daemon.json
 
   - name: Starting and Enabling the required services
     service:

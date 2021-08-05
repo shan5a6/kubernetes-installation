@@ -29,7 +29,7 @@
 
   - name: Adding docker driver details to daemon.json
     template:
-      src: deamon-json.j2
+      src: daemon-json.j2
       dest: /etc/docker/daemon.json
 
   - name: Starting and Enabling the required services

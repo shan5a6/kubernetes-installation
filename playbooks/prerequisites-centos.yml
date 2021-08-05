@@ -26,7 +26,7 @@
 
   - name: Changing iptables
     template: src=k8s-module.conf dest=/etc/modules-load.d/k8s.conf owner=root group=root
-    register: iptables-module
+    register: iptables_module
 
   - name: Sync the sysctl configuration
     command: sysctl --system
@@ -34,4 +34,4 @@
 
   - name: Sync the sysctl configuration
     command: sysctl --system
-    when: iptables-module.changed
+    when: iptables_module.changed
