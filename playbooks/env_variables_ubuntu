@@ -9,6 +9,9 @@ packages:
 - docker.io
 - kubeadm
 - kubectl
+- apt-transport-https
+- ca-certificates
+- curl
 
 services:
 - docker

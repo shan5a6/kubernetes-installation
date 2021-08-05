@@ -12,18 +12,18 @@
   - name: Download repo key
     get_url:
       url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-      dest: /root/apt-key.gpg
+      dest: /usr/share/keyrings/kubernetes-archive-keyring.gpg
     register: aptkey
 
   - name: Adding the repo keys
-    command: apt-key add /root/apt-key.gpg
+    command: apt-key add /usr/share/keyrings/kubernetes-archive-keyring.gpg
     when: aptkey.changed
 
   - name: Adding repository details in Kubernetes repo file.
     blockinfile:
      path: /etc/apt/sources.list.d/kubernetes.list
      block: |
-       deb https://apt.kubernetes.io/ kubernetes-xenial main
+       "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main"
 
   - name: updating cache
     apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
@@ -35,23 +35,10 @@
      update_cache: yes
     with_items: "{{ packages }}"
 
-  - name: Creating a docker deamon config file
-    file:
-     path: /etc/docker/daemon.json
-     state: touch
-
   - name: Adding docker driver details to daemon.json
-    blockinfile:
-     path: /etc/docker/daemon.json
-     block: |
-        {
-          "exec-opts": ["native.cgroupdriver=systemd"],
-          "log-driver": "json-file",
-          "log-opts": {
-            "max-size": "100m"
-          },
-          "storage-driver": "overlay2"
-        }
+    template:
+      src: deamon-json.j2
+      dest: /etc/docker/daemon.json
 
   - name: Starting and Enabling the required services
     service:
