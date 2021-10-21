@@ -21,6 +21,22 @@ apt-add-repository ppa:ansible/ansible
 apt-get update
 apt-get  install ansible -y
 ```
+```
+If you are facing below issue then please follow the instructions as specified below
+
+root@ip-172-31-16-231:~# apt-add-repository ppa:ansible/ansible
+Cannot add PPA: 'ppa:~ansible/ubuntu/ansible'.
+ERROR: '~ansible' user or team does not exist.
+```
+###### Solution
+```
+apt-get update -y
+apt-get upgrade -y
+apt-add-repository ppa:ansible/ansible
+apt-get update
+apt-get  install ansible -y
+```
+
 ###### Centos
 ```
 yum install epel-release ansible -y
