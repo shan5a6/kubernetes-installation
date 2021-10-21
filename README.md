@@ -35,6 +35,9 @@ apt-get upgrade -y
 apt-add-repository ppa:ansible/ansible
 apt-get update
 apt-get  install ansible -y
+root@ip-172-31-16-231:~# ansible --version
+ansible 2.9.27
+Note: Make sure that your ansible version is latest
 ```
 
 ###### Centos
