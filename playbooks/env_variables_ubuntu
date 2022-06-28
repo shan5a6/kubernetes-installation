@@ -32,7 +32,7 @@ packages:
 
 services:
 - kubelet
-
+- containerd
 token_file: join_token
 ###################################################################################
 # Dont Edit these above values, these are mandatory to configure kubernetes cluster
