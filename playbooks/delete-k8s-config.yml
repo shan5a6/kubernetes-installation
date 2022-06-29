@@ -15,14 +15,20 @@
   tasks:
   - name: reset the cluster
     command: kubeadm reset -f
-
+    ignore_errors: true
+  - name: Stop the deamons
+    systemd:
+      name: "{{item}}"
+      state: stopped
+    with_items:
+      - docker
   - name: Removing Repo File of Kubernetes.
     file:
      path: /etc/yum.repos.d/kubernetes.repo
      state: absent
 
   - name: Uninstalling kubernetes related packages
-    yum:
+    apt:
      name: "{{ item }}"
      state: absent
     with_items: "{{ packages }}"
@@ -40,6 +46,11 @@
     - /etc/containerd/config.toml 
     - /etc/apt/sources.list.d/kubernetes.list
     - /usr/share/keyrings/kubernetes-archive-keyring.gpg
+    - /tmp/docker.gpg
+    - /run/containerd/containerd.sock
+
+  - name: Autoremove
+    command: apt autoremove -y
 
 
   - name: Removing required files of "{{ ansible_user }}"
