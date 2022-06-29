@@ -3,14 +3,19 @@
 
   vars:
    packages:
-   - docker*
+   - containerd
    - kubeadm
    - kubectl
    - kubelet
+   - docker-ce 
+   - docker-ce-cli 
+   - containerd.io 
+   - docker-compose-plugin
 
   tasks:
   - name: reset the cluster
     command: kubeadm reset -f
+
   - name: Removing Repo File of Kubernetes.
     file:
      path: /etc/yum.repos.d/kubernetes.repo
@@ -30,6 +35,12 @@
     - /etc/kubernetes/
     - /var/lib/etcd/
     - $HOME/.kube/
+    - /etc/apt/keyrings/docker.gpg
+    - /etc/apt/sources.list.d/docker.list
+    - /etc/containerd/config.toml 
+    - /etc/apt/sources.list.d/kubernetes.list
+    - /usr/share/keyrings/kubernetes-archive-keyring.gpg
+
 
   - name: Removing required files of "{{ ansible_user }}"
     shell: |

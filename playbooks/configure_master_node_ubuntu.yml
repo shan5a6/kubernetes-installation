@@ -25,11 +25,11 @@
       kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
   - name: Configuring kubectl for "{{ ansible_user }}"
     shell: |
-     mkdir -p $HOME/.kube
-     sudo cp -i /etc/kubernetes/admin.conf $HOME/
-     sudo chown $(id -u):$(id -g) $HOME/admin.conf
-     echo "export KUBECONFIG=$HOME/admin.conf" >> ~/.bashrc
-     bash
-    become: yes
-    become_user: "{{ ansible_user }}"
+      echo "Hi whats this !!!"
+      mkdir -p $HOME/.kube
+      cp -rf /etc/kubernetes/admin.conf $HOME/
+      chown $(id -u):$(id -g) $HOME/admin.conf
+      echo "export KUBECONFIG=$HOME/admin.conf" >> ~/.bashrc
+    tags: "t1"
+
 
