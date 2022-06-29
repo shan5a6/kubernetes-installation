@@ -5,18 +5,34 @@ cidr_v: 172.16.0.0/16
 
 ###################################################################################
 # Dont Edit these below values, these are mandatory to configure kubernetes cluster
-packages:
-- docker.io
-- kubeadm
-- kubectl
-- apt-transport-https
+container_initial_packages:
 - ca-certificates
 - curl
+- gnupg
+- lsb-release
+
+container_runtime_packages:
+- docker-ce 
+- docker-ce-cli 
+- containerd.io 
+- docker-compose-plugin
+
+container_runtime_services:
+- containerd 
+
+container_packages_remove: [docker, docker-engine, docker.io, containerd, runc]
+
+
+packages:
+- kubeadm
+- kubectl
+- kubelet
+- apt-transport-https
+
 
 services:
-- docker
 - kubelet
-
+- containerd
 token_file: join_token
 ###################################################################################
 # Dont Edit these above values, these are mandatory to configure kubernetes cluster

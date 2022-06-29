@@ -1,34 +1,13 @@
 ### If you are working on Aws 
 ###### Make sure that you are picking the AMI ID's as specified below.
 ```
-ap-northeast-1 = "ami-0567c164"
-ap-southeast-1 = "ami-a1288ec2"
-cn-north-1 = "ami-d9f226b4"
-eu-central-1 = "ami-8504fdea"
-eu-west-1 = "ami-0d77397e"
-sa-east-1 = "ami-e93da085"
-us-east-1 = "ami-40d28157"
-us-west-1 = "ami-6e165d0e"
-us-west-2 = "ami-a9d276c9"
+Make sure that you are selecting any ubuntu image with version >= Ubuntu Server 20.04 LTS (HVM)
 ```
 ### Installing K8S using ansible 
 
 ##### Prerequisite 
 Luanch one server and install the ansible & git as below
 ###### Ubuntu
-```
-apt-add-repository ppa:ansible/ansible
-apt-get update
-apt-get  install ansible -y
-```
-```
-If you are facing below issue then please follow the instructions as specified below
-
-root@ip-172-31-16-231:~# apt-add-repository ppa:ansible/ansible
-Cannot add PPA: 'ppa:~ansible/ubuntu/ansible'.
-ERROR: '~ansible' user or team does not exist.
-```
-###### Solution
 ```
 apt-get update -y
 apt-get upgrade -y
@@ -49,3 +28,26 @@ yum install epel-release ansible -y
 sudo amazon-linux-extras install epel -y
 sudo yum install ansible -y
 ```
+
+### Clone the repository 
+
+git clone https://github.com/shan5a6/kubernetes-installation.git
+cd kubernetes-installation
+Update the pem key to file "mykey.pem"
+chmod 600 mykey.pem
+
+### Run the playbooks for k8s installation
+
+update the hosts file with neccessary hosts information
+Note: Take only private dns  
+
+```
+hosts file content 
+
+[kubernetes-master-nodes]
+ip-172-31-29-161.ec2.internal ansible_user=ubuntu os_type="Ubuntu"
+
+[kubernetes-worker-nodes]
+ip-172-31-20-9.ec2.internal ansible_user=ubuntu  os_type="Ubuntu"
+```
+

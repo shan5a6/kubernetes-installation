@@ -4,6 +4,61 @@
   - env_variables_ubuntu
 
   tasks:
+  # Creating runtime
+  - name: Removing packages
+    apt:
+     name: "{{ item }}"
+     state: absent
+    with_items: "{{ container_packages_remove }}"
+
+  - name: Installing required container runtime packages
+    apt:
+     name: "{{ item }}"
+     state: present
+     update_cache: yes
+    with_items: "{{ container_initial_packages }}"
+
+  - name: creating container runtime folder
+    file: path=/etc/apt/keyrings state=directory owner=root group=root  
+
+  - name: Download container runtime repo key
+    get_url:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      dest: /tmp/docker.gpg
+    register: gpgkey
+
+  - name: Adding the container runtime repo key
+    shell: cat /tmp/docker.gpg| gpg --dearmor > /etc/apt/keyrings/docker.gpg
+    when: gpgkey.changed 
+
+  - name: Adding repository details in container runtime  repo file.
+    template:
+     src: docker.j2
+     dest: /etc/apt/sources.list.d/docker.list
+
+  - name: updating cache
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+  - name: Installing container runtime required  packages
+    apt:
+     name: "{{ item }}"
+     state: present
+     update_cache: yes
+    with_items: "{{ container_runtime_packages }}"
+  
+  - name: Adding container runtime config (toml) file 
+    template:
+      src: config.j2
+      dest: /etc/containerd/config.toml 
+
+  - name: Starting and Enabling the required conatiner runtime services
+    service:
+     name: "{{ item }}"
+     state: restarted
+     enabled: yes
+    with_items: "{{ container_runtime_services }}"
+
+# Kubernetes configuration 
   - name: Creating a repository file for Kubernetes
     file:
      path: /etc/apt/sources.list.d/kubernetes.list
@@ -28,14 +83,6 @@
   - name: updating cache
     apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
 
-  - name: creating docker folder
-    file: path=/etc/docker state=directory owner=root group=root
-
-  - name: Adding docker driver details to daemon.json
-    template:
-      src: daemon-json.j2
-      dest: /etc/docker/daemon.json
-
   - name: Installing required packages
     apt:
      name: "{{ item }}"
@@ -46,6 +93,6 @@
   - name: Starting and Enabling the required services
     service:
      name: "{{ item }}"
-     state: started
+     state: restarted
      enabled: yes
     with_items: "{{ services }}"
