@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: application1
+  labels:
+    app: application1
+    namespace: java-dev
+spec:
+  externalIPs:
+  - 172.31.24.128 # Give the private ip of master/slave
+  ports:
+    - port: 80
+  selector:
+    app: application1
+    tier: frontend
+  type: LoadBalancer
