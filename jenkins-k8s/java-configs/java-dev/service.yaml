@@ -4,13 +4,14 @@ metadata:
   name: application1
   labels:
     app: application1
-    namespace: java-dev
+  namespace: java-dev
 spec:
   externalIPs:
   - 172.31.24.128 # Give the private ip of master/slave
   ports:
-    - port: 80
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
   selector:
     app: application1
-    tier: frontend
   type: LoadBalancer
