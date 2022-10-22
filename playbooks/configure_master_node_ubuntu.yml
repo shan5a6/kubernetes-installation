@@ -21,8 +21,8 @@
 
   - name: Install Network Add-on
     shell: |
-      export kubever=$(kubectl version | base64 | tr -d '\n')
-      kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+            #      export kubever=$(kubectl version -o yaml|grep gitVersion|awk -F':' '{print $2}'|head -1)
+      kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
   - name: Configuring kubectl for "{{ ansible_user }}"
     shell: |
       echo "Hi whats this !!!"
